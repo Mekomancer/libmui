@@ -41,7 +41,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(std)
 
 add_library(${PROJECT_NAME}
-  src/cmdline/base.cxx
+  src/ioctl.cxx
+  src/cmdline.cxx
 )
 
 target_sources(${PROJECT_NAME}
@@ -53,6 +54,7 @@ target_sources(${PROJECT_NAME}
   src/mui.ixx
   src/cmdline.ixx
   src/fb.ixx
+  src/ioctl.ixx
 )
 
 add_executable(test
