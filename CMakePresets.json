@@ -1,0 +1,14 @@
+{
+  "version": 10,
+  "cmakeMinimumRequired": {
+    "major":4,
+    "minor":2
+  },
+  "configurePresets":[
+    {
+      "name": "default",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build"
+    }
+  ]
+}
