@@ -20,7 +20,7 @@ bool test_help_opt() {
   string ver_opt = "-V";
   print("Testing help and version options\n");
   char *opts1[] = {name.data(), bogus_opt.data(), ver_opt.data(),
-                  help_opt.data()};
+                   help_opt.data()};
   print("args = {} {} {} {}\n", name, bogus_opt, ver_opt, help_opt);
   quick_parse_args(4, opts1);
   char *opts2[] = {name.data(), bogus_opt.data(), help_opt.data()};
