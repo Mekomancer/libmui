@@ -43,6 +43,7 @@ FetchContent_MakeAvailable(std)
 add_library(${PROJECT_NAME}
   src/ioctl.cxx
   src/cmdline.cxx
+  src/fb.cxx
 )
 
 target_sources(${PROJECT_NAME}
@@ -55,6 +56,7 @@ target_sources(${PROJECT_NAME}
   src/cmdline.ixx
   src/fb.ixx
   src/ioctl.ixx
+  src/error.ixx
 )
 
 add_executable(test

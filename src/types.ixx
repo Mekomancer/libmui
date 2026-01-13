@@ -25,4 +25,8 @@ export {
 
   using std::size_t;
   using ssize_t = std::ptrdiff_t;
+
+  template <typename T = void, typename E = int>
+  using Result = std::expected<T, E>;
+  template <typename E = int> using Err = std::unexpected<E>;
 };

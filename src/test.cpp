@@ -5,14 +5,23 @@ using std::print;
 using std::string;
 
 bool test_help_opt();
+bool test_framebuffer();
 
 int main(int argc, char *argv[]) {
   print("Starting tests\n");
   test_help_opt();
+  test_framebuffer();
   print("Finished tests\n");
   return 0;
 }
+bool test_framebuffer() {
+  print("Testing framebuffer\n");
+  Framebuffer fb;
 
+  fb.~Framebuffer();
+  print("Finished testing framebuffer\n");
+  return true;
+};
 bool test_help_opt() {
   string name = "libmui";
   string bogus_opt = "--do-a-flip";
