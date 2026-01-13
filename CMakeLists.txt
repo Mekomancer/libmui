@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY target)
 
-project(project_name
-  VERSION 0.0.0 # SemVer
-  DESCRIPTION "Lorem ipsum dolor sit amet"
+project(mui
+  VERSION 0.1.0 # SemVer
+  DESCRIPTION "Mark's ui lib"
   LANGUAGES CXX
 )
 
@@ -40,22 +40,29 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(std)
 
-add_executable(${PROJECT_NAME}
-  src/main.cpp
+add_library(${PROJECT_NAME}
   src/cmdline/base.cxx
 )
 
 target_sources(${PROJECT_NAME}
-  PRIVATE
+  PUBLIC
   FILE_SET CXX_MODULES
   BASE_DIRS src
   FILES
   src/types.ixx
+  src/mui.ixx
   src/cmdline.ixx
+  src/fb.ixx
+)
+
+add_executable(test
+  src/test.cpp
 )
 
 add_custom_target(format 
   COMMAND clang-format -i
+  "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:test,SOURCES>
+  ,${CMAKE_SOURCE_DIR}>"
   "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:${PROJECT_NAME},SOURCES>
   ,${CMAKE_SOURCE_DIR}>"
   "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:${PROJECT_NAME},CXX_MODULE_SET>
@@ -72,3 +79,4 @@ target_compile_definitions(${PROJECT_NAME}
 
 
 target_link_libraries(${PROJECT_NAME} std)
+target_link_libraries(test mui std)
