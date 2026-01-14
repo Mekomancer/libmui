@@ -2,7 +2,9 @@ import mui;
 import std;
 
 using std::print;
+using std::size_t;
 using std::string;
+using std::uint8_t;
 
 bool test_help_opt();
 bool test_framebuffer();
@@ -16,9 +18,13 @@ int main(int argc, char *argv[]) {
 }
 bool test_framebuffer() {
   print("Testing framebuffer\n");
-  Framebuffer fb;
-
-  fb.~Framebuffer();
+  Framebuffer *fb = open_framebuffer(270);
+  for (uint8_t row = 0; row < 255; ++row) {
+    for (uint8_t col = 0; col < 255; ++col) {
+      fb->set_pixel({row, col}, {0, row, col});
+    }
+  }
+  fb->~Framebuffer();
   print("Finished testing framebuffer\n");
   return true;
 };
