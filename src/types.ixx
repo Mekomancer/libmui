@@ -1,4 +1,4 @@
-export module types;
+export module mui.types;
 import std;
 export {
   using std::array;

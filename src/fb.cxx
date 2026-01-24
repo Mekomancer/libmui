@@ -3,9 +3,9 @@ module;
 #include <linux/fb.h>
 #include <sys/mman.h>
 #include <unistd.h>
-module fb;
-import ioctl;
-import error;
+module mui.fb;
+import mui.ioctl;
+import mui.error;
 
 constexpr auto bitscale(auto val, int cur, int target) -> decltype(val) {
   return (((2 * val * ((1 << target) - 1)) / ((1 << cur) - 1)) + 1) / 2;
@@ -16,20 +16,6 @@ void Framebuffer::set_pixel(Framebuffer::Position pos, Framebuffer::Pixel pix) {
       bitscale<uint16_t>(pix.grn, 8, vinfo.green.length) << vinfo.green.offset |
       bitscale<uint16_t>(pix.blu, 8, vinfo.blue.length) << vinfo.blue.offset;
 };
-
-Framebuffer::Pixel Framebuffer::get_pixel(Framebuffer::Position pos) {
-  const uint16_t val =
-      *reinterpret_cast<uint16_t *>(addr + to_byte_offset(pos));
-  return {bitscale<uint8_t>(val >> vinfo.red.offset &
-                                ((1 << (vinfo.red.length)) - 1),
-                            vinfo.red.length, 8),
-          bitscale<uint8_t>(val >> vinfo.green.offset &
-                                ((1 << (vinfo.green.length)) - 1),
-                            vinfo.green.length, 8),
-          bitscale<uint8_t>(val >> vinfo.blue.offset &
-                                ((1 << (vinfo.blue.length)) - 1),
-                            vinfo.blue.length, 8)};
-}
 
 Framebuffer::Framebuffer() {
   // Opens fbdev and mmaps it

@@ -12,6 +12,11 @@ d: debug
 r: run
 fmt: format
 
+install: $(build_dir)
+	env -C $(build_dir) cmake .. --preset=default -DCMAKE_BUILD_TYPE=RelWithDebInfo
+	$(nin)
+	sudo $(nin) install
+
 build: $(build_dir)/build.ninja
 	$(nin)
 

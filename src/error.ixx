@@ -1,8 +1,8 @@
 module;
 #include <errno.h>
-export module error;
+export module mui.error;
 import std;
-import types;
+import mui.types;
 // normally i would use string_view but system_error() takes a string&
 export [[noreturn]] void throw_errno(const string &what_arg);
 

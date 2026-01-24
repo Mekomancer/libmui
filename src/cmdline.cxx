@@ -1,5 +1,5 @@
-module cmdline;
-
+module mui.cmdline;
+import mui.types;
 void print_help();
 void print_version();
 

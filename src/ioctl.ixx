@@ -1,7 +1,7 @@
 module;
 #include <linux/fb.h>
-export module ioctl;
-import types;
+export module mui.ioctl;
+import mui.types;
 export {
   /// fd to /dev/fb0
   Result<fb_fix_screeninfo> fbioget_fscreeninfo(int fd);

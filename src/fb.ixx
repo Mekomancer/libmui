@@ -1,24 +1,15 @@
 module;
 #include <linux/fb.h>
-export module fb;
-import types;
+export module mui.fb;
+import mui.types;
 import std;
+import mui.graphics;
 
-export struct Framebuffer {
+export class Framebuffer : public display {
 public:
-  struct Pixel {
-    uint8_t red;
-    uint8_t grn;
-    uint8_t blu;
-  };
-  struct Position {
-    size_t row;
-    size_t col;
-  };
   Framebuffer();
   ~Framebuffer();
-  void set_pixel(Position pos, Pixel pix);
-  Pixel get_pixel(Position pos);
+  void set_pixel(Position pos, Pixel pix) override;
   void print_info();
 
 protected:
@@ -27,7 +18,7 @@ protected:
   fb_fix_screeninfo finfo;
   fb_var_screeninfo vinfo;
 };
-export template <int rotation> struct RotatedFramebuffer : public Framebuffer {
+export template <int rotation> class RotatedFramebuffer : public Framebuffer {
 protected:
   size_t to_byte_offset(Position pos) override;
 };
