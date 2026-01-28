@@ -3,9 +3,9 @@ module;
 export module mui.fb;
 import mui.types;
 import std;
-import mui.graphics;
+import mui.display;
 
-export class Framebuffer : public display {
+export class Framebuffer : public Display {
 public:
   Framebuffer();
   ~Framebuffer();

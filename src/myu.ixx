@@ -2,4 +2,4 @@ export module mui;
 
 import std;
 export import mui.cmdline;
-export import mui.fb;
+export import mui.graphics;

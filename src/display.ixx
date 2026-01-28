@@ -1,8 +1,8 @@
-export module mui.graphics;
+export module mui.display;
 import std;
 import mui.types;
 
-export class display {
+export class Display {
 public:
   struct Pixel {
     uint8_t red;
@@ -15,4 +15,6 @@ public:
   };
   virtual void set_pixel(Position pos, Pixel pix) = 0;
   void draw_line(Position p1, Position p2, Pixel color);
+  void draw_rect(Position p1, Position p2, Pixel color);
+  virtual ~Display() = default;
 };

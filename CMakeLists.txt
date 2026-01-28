@@ -7,7 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY target)
 set(CMAKE_CXX_MODULE_STD 1)
 
-project(myu
+project(mui
   VERSION 0.1.0 # SemVer
   DESCRIPTION "μ"
   LANGUAGES CXX
@@ -19,27 +19,31 @@ if(NOT CMAKE_BUILD_TYPE)
      "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-add_library(myu
+add_library(mui
   src/ioctl.cxx
   src/cmdline.cxx
   src/fb.cxx
   src/display.cxx
   src/font.cxx
+  src/file.cxx
 )
 
-target_sources(myu
+target_sources(mui
   PUBLIC
   FILE_SET CXX_MODULES
   BASE_DIRS src
   FILES
   src/display.ixx
   src/types.ixx
-  src/myu.ixx
+  src/mui.ixx
   src/cmdline.ixx
   src/fb.ixx
   src/ioctl.ixx
   src/error.ixx
   src/font.ixx
+  src/io.ixx
+  src/file.ixx	
+  src/graphics.ixx
 )
 
 add_executable(test
@@ -50,46 +54,46 @@ add_custom_target(format
   COMMAND clang-format -i
   "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:test,SOURCES>
   ,${CMAKE_SOURCE_DIR}>"
-  "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:myu,SOURCES>
+  "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:mui,SOURCES>
   ,${CMAKE_SOURCE_DIR}>"
-  "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:myu,CXX_MODULE_SET>
+  "$<PATH:ABSOLUTE_PATH,$<TARGET_PROPERTY:mui,CXX_MODULE_SET>
   ,${CMAKE_SOURCE_DIR}>"
   COMMAND_EXPAND_LISTS
   VERBATIM
 )
 
-target_compile_definitions(myu 
+target_compile_definitions(mui 
   PRIVATE 
   VERSION=\"${PROJECT_VERSION}\"
-  NAME=\"myu\"
+  NAME=\"mui\"
 )
 
-target_compile_features(myu PUBLIC cxx_std_26)
+target_compile_features(mui PUBLIC cxx_std_26)
 
-target_link_libraries(myu)
-target_link_libraries(test myu)
+target_link_libraries(mui)
+target_link_libraries(test mui)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-set(module_interface_dir  ${CMAKE_INSTALL_INCLUDEDIR}/myu/)
+set(module_interface_dir  ${CMAKE_INSTALL_INCLUDEDIR}/mui/)
 configure_package_config_file(
-  ${CMAKE_SOURCE_DIR}/cmake/myuConfig.cmake.in
-  ${CMAKE_BINARY_DIR}/myuConfig.cmake
+  ${CMAKE_SOURCE_DIR}/cmake/muiConfig.cmake.in
+  ${CMAKE_BINARY_DIR}/muiConfig.cmake
   PATH_VARS module_interface_dir
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/myu
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mui
 )
-install(TARGETS myu 
-  EXPORT myuModules
+install(TARGETS mui 
+  EXPORT muiModules
   CXX_MODULES_BMI  
     DESTINATION ${CMAKE_INSTALL_LIBDIR}
   FILE_SET CXX_MODULES
     DESTINATION ${module_interface_dir}
 )
 install(FILES
-  ${CMAKE_BINARY_DIR}/myuConfig.cmake
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/myu
+  ${CMAKE_BINARY_DIR}/muiConfig.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mui
 )
-install(EXPORT myuModules 
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/myu 
+install(EXPORT muiModules 
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mui 
     CXX_MODULES_DIRECTORY .
 )
 

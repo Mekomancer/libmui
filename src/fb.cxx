@@ -21,10 +21,10 @@ Framebuffer::Framebuffer() {
   // Opens fbdev and mmaps it
   int fd = open("/dev/fb0", O_RDWR);
   if (fd < 0) throw_errno("Failed to open framebuffer device");
-  Result<fb_fix_screeninfo> finfo_res = fbioget_fscreeninfo(fd);
+  muiResult<fb_fix_screeninfo> finfo_res = fbioget_fscreeninfo(fd);
   if (!finfo_res) throw_errno("Failed to get framebuffer's fixed screen info");
   else finfo = *finfo_res;
-  Result<fb_var_screeninfo> vinfo_res = fbioget_vscreeninfo(fd);
+  muiResult<fb_var_screeninfo> vinfo_res = fbioget_vscreeninfo(fd);
   if (!vinfo_res) throw_errno("Failed to get framebuffer's var screen info");
   else vinfo = *vinfo_res;
   void *addr_ret =

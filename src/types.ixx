@@ -7,11 +7,11 @@ export {
   using std::string_view;
   using std::vector;
 
+  namespace fs {
+  using path = ::std::filesystem::path;
+  }
   using namespace std::placeholders;
   using namespace std::literals;
-  namespace std {
-  namespace fs = filesystem;
-  };
 
   using std::int16_t;
   using std::int32_t;
@@ -27,6 +27,6 @@ export {
   using ssize_t = std::ptrdiff_t;
 
   template <typename T = void, typename E = int>
-  using Result = std::expected<T, E>;
-  template <typename E = int> using Err = std::unexpected<E>;
+  using muiResult = std::expected<T, E>;
+  template <typename E = int> using muiErr = std::unexpected<E>;
 };
